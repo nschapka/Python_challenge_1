@@ -13,11 +13,13 @@ The results of the analysis performed on the election data are as follows:
 * Denver County had **306,055** votes, for **82.78%** of the total
 * Araphoe County had **24,801** votes, for **6.71%** of the total
 * Denver County had the highest turnout
-
+ 
+ 
 * Charles Casper Stockham recieved **23.05%** of the vote (**85,213** total)
 * Diana DeGette recieved **73.81%** of the vote (**272,892** total)
 * Raymon Anthony Doane recieved **3.14%** of the vote (**11,606** total)
-
+ 
+ 
 * Diana Degette won the election, with **73.81%** of the vote (**272,892** total)
 
 ## Summary
@@ -30,9 +32,10 @@ The following line of code will assemble a list of strings containing the file p
 filenames = [os.path.join('resources', filename) for filename in os.listdir('resources')]
 
 for file in filenames:
-  # find the file name (any non-forwardslash characters preceded by ".csv"), then insert it into a valid output filepath
-  outputfile = os.path.join('analysis', re.search("[^\\\\]*(?=\.csv)", filenames[0]).group()) + '_results.txt'
+  # find the file name (any characters preceded by "\" and followed by ".csv"), then insert it into a valid output filepath
+  outputfile = os.path.join('analysis', re.search("(?<=\\\\).*(?=\.csv)", filenames[0]).group()) + '_results.txt'
   # perform analysis and write to file
 ```
+
 
 
