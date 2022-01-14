@@ -27,6 +27,7 @@ The results of the analysis performed on the election data are as follows:
 This script is great for handling a single election, however, the file names are hard coded, so it could become cumbersome to use to count elections for multiple districts at once.  With some modifications, the script could be used to tally any number of elections, so long as the data is in the same format.
 
 The following line of code will assemble a list of strings containing the file path and name of all files within a directory called 'resources', and could be used to iterate across each file accordingly.  However, this modification will require results to be saved as .csv files, named `<countyName>.csv`.
+
 ```
 # assemble a list of paths to files within the resources directory
 filenames = [os.path.join('resources', filename) for filename in os.listdir('resources')]
@@ -36,6 +37,24 @@ for file in filenames:
   outputfile = os.path.join('analysis', re.search("(?<=\\\\).*(?=\.csv)", filenames[0]).group()) + '_results.txt'
   # perform analysis and write to file
 ```
+
+Additionally, safeguards could be added to remove duplicate rows in the input .csv:
+
+```
+voterIDs = []
+
+for inputFile in filenames:
+ with open(inputFile) as election_data:
+    reader = csv.reader(election_data)
+    header = next.reader
+    for row in reader:
+     voterID = reader[0]
+     if voterID not in voterIDs:
+       voterIDs.append(voterID)
+       # perform the rest of the tally
+```
+
+This could be used to make sure that the resulting tally is correct, regardless of any duplicate entries in the input data.
 
 
 
