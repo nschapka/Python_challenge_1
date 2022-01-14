@@ -24,10 +24,9 @@ The results of the analysis performed on the election data are as follows:
 
 This script is great for handling a single election, however, the file names are hard coded, so it could become cumbersome to use to count elections for multiple districts at once.  With some modifications, the script could be used to tally any number of elections, so long as the data is in the same format.
 
-
-The following line of code will assemble a list of strings containing the file path and name of all files within a directory called 'resources', and could be used to iterate across each file accordingly.
+The following line of code will assemble a list of strings containing the file path and name of all files within a directory called 'resources', and could be used to iterate across each file accordingly.  However, this modification will require results to be saved as .csv files, named `<countyName>.csv`.
 ```
-# 
+# assemble a list of paths to files within the resources directory
 filenames = [os.path.join('resources', filename) for filename in os.listdir('resources')]
 
 for file in filenames:
@@ -35,4 +34,5 @@ for file in filenames:
   outputfile = os.path.join('analysis', re.search("[^\\\\]*(?=\.csv)", filenames[0]).group()) + '_results.txt'
   # perform analysis and write to file
 ```
+
 
